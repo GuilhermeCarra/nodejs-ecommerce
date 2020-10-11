@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <%- include('../templates/head.ejs') -%>
+    <body class="bg-primary">
+		<%- include('../templates/header.ejs') -%>
+
+        <div class="banner position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-light">
+          <div class="col-md-5 mx-auto">
+            <h1 class="display-4 font-weight-bold">Hamburguers</h1>
+            <p class="lead font-weight-normal">Mouth-watering burgers! Quality is our recipe.</p>
+          </div>
+		</div>
+
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-9 row justify-content-around">
+
+					<% for (let i=0 ; i < products.length; i++) { %>
+						<div class="card mt-3" style="width: 18rem;">
+							<img src="public/images/products/<%= products[i].id %>-1.jpg" class="card-img-top" alt="burger photo">
+							<div class="card-body">
+								<h5 class="card-title"><%= products[i].title %></h5>
+								<p class="card-text"><%= products[i].description %></p>
+								<a href="/order?p=<%= products[i].id %>" class="btn btn-primary">Order</a>
+							</div>
+						</div>
+					<% } %>
+
+				</div>
+				<div class="col"></div>
+			</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "node.js-web-mvc",
+  "version": "1.0.0",
+  "description": "A e-commerce website with node.js server",
+  "main": "src/routes/router.js",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.2",
+    "csurf": "^1.11.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.1",
+    "helmet": "^4.1.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "node": "nodemon src/routes/router.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://code.assemblerschool.com/guillherme-carra/Node.js-Web-MVC.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

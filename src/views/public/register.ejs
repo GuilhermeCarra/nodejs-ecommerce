@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <%- include('../templates/head.ejs') -%>
+    <body>
+        <h1>Registration</h1>
+        <form method="POST" action="/login/register">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Full Name</label>
+              <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="username" name="username">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </body>
+</html>
