@@ -14,31 +14,26 @@
         <div class="container-fluid">
 			<div class="row mt-3">
 				<div class="col"></div>
-				<div class="col-9 row justify-content-around">
-					<div class="card mb-3" style="max-width: 540px;">
+				<div class="col-7 row justify-content-around">
+
+					<div class="card mb-3 mt-4 text-white bg-dark mb-3">
 						<div class="row no-gutters">
 						  <div class="col-md-4">
 							<img src="/public/images/products/<%= product[0].id %>-1.jpg" class="card-img" alt="product photo">
 						  </div>
 						  <div class="col-md-8">
 							<div class="card-body">
-							  <h5 class="card-title"><%= product[0].title %></h5>
-							  <p class="card-text"><%= product[0].description %></p>
-							  <p class="card-text">
-									<% for (let i = 0; i < product.length; i++) { %>
-										<p><%= product[i].size %></p>
-										<p><%= product[i].price %></p>
-										<p><%= product[i].stock %></p>
-									<% } %>
-								</p>
+								<h1 class="card-title"><%= product[0].title %></h1>
+									<p class="card-text"><%= product[0].description %></p>
+									<p class="card-text">
+										<% for (let i = 0; i < product.length; i++) { %>
+											<p>SIZE: <%= product[i].size %>-<%= product[i].price %>-<%= product[i].stock %></p>
+										<% } %>
+									</p>
 							</div>
 						  </div>
 						</div>
-					  </div>
-
-					
-
-
+					</div>
 
 				</div>
 				<div class="col"></div>
