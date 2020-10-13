@@ -5,10 +5,10 @@
 		<%- include('../templates/header.ejs') -%>
 
         <div class="banner position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-light">
-          <div class="col-md-5 mx-auto">
-            <h1 class="display-4 font-weight-bold">Hamburguers</h1>
-            <p class="lead font-weight-normal">Mouth-watering burgers! Quality is our recipe.</p>
-          </div>
+			<div class="col-md-5 mx-auto">
+				<h1 class="display-4 font-weight-bold">Hamburguers</h1>
+				<p class="lead font-weight-normal">Mouth-watering burgers! Quality is our recipe.</p>
+			</div>
 		</div>
 
         <div class="container-fluid">
@@ -30,34 +30,34 @@
 								</div>
 							</div>
 							<div class="col-md-8">
-							<div class="card-body">
-								<h1 class="card-title"><%= product[0].title %></h1>
+								<div class="card-body">
+									<h1 class="card-title"><%= product[0].title %></h1>
 
-								<p class="card-text"><%= product[0].description %></p>
+									<p class="card-text"><%= product[0].description %></p>
 
-								<div class="card-text">
-									<div class="d-flex justify-content-around mt-4">
-										<% for (let i = 0; i < product.length; i++) { %>
-											<div class="mb-3">
-												<button type="button" class="btn btn-light">SIZE <%= product[i].size %><br>€<%= product[i].price %></button>
-												<div class="text-center mt-2">
-													<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-														<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-													</svg>
-													<span class="h5" id="productQnt">0</span>
-													<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-														<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-													</svg>
+									<div class="card-text">
+										<div class="d-flex justify-content-around mt-4">
+											<% for (let i = 0; i < product.length; i++) { %>
+												<div class="mb-3">
+													<button type="button" class="btn btn-light">SIZE <%= product[i].size %><br>€<%= product[i].price %></button>
+													<div class="text-center mt-2">
+														<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+														</svg>
+														<span class="h5" id="productQnt">0</span>
+														<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+														</svg>
+													</div>
 												</div>
-											</div>
-										<% } %>
-									</div>
-									<div class="align-self-center text-center mt-3">
-										<button class="btn btn-warning">Add to cart</button>
+											<% } %>
+										</div>
+										<div class="align-self-center text-center mt-3">
+											<button class="btn btn-warning">Add to cart</button>
+										</div>
 									</div>
 								</div>
 							</div>
-						  </div>
 						</div>
 					</div>
 
