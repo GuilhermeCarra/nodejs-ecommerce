@@ -18,18 +18,44 @@
 
 					<div class="card mb-3 mt-4 text-white bg-dark mb-3">
 						<div class="row no-gutters">
-						  <div class="col-md-4">
-							<img src="/public/images/products/<%= product[0].id %>-1.jpg" class="card-img" alt="product photo">
-						  </div>
-						  <div class="col-md-8">
+							<div class="col-md-4">
+								<img src="/public/images/products/<%= product[0].id %>-1.jpg" class="card-img" alt="product photo">
+								<div class="container">
+									<div class="row mt-2">
+										<img src="/public/images/products/<%= product[0].id %>-1.jpg" class="col-4 border rounded" alt="product photo">
+										<img src="/public/images/products/<%= product[0].id %>-2.jpg" class="col-4 border rounded" alt="product photo">
+										<img src="/public/images/products/<%= product[0].id %>-3.jpg" class="col-4 border rounded" alt="product photo">
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
 							<div class="card-body">
 								<h1 class="card-title"><%= product[0].title %></h1>
-									<p class="card-text"><%= product[0].description %></p>
-									<p class="card-text">
+
+								<p class="card-text"><%= product[0].description %></p>
+
+								<div class="card-text">
+									<div class="d-flex justify-content-around mt-4">
 										<% for (let i = 0; i < product.length; i++) { %>
-											<p>SIZE: <%= product[i].size %>-<%= product[i].price %>-<%= product[i].stock %></p>
+											<div class="mb-3">
+												<button type="button" class="btn btn-light">SIZE <%= product[i].size %><br>€<%= product[i].price %></button>
+												<div class="text-center mt-2">
+													<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+														<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+													</svg>
+													<span class="h5" id="productQnt">0</span>
+													<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+													</svg>
+												</div>
+											</div>
 										<% } %>
-									</p>
+									</div>
+									<div class="align-self-center text-center mt-3">
+										<button class="btn btn-warning">Add to cart</button>
+									</div>
+								</div>
 							</div>
 						  </div>
 						</div>
