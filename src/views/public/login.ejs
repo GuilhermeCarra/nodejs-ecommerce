@@ -1,22 +1,33 @@
 <!DOCTYPE html>
     <html lang="en">
-        <%- include('../templates/head.ejs') -%>
-    <body>
-        <% if (messages.error) { %>
-            <%= messages.error %>
-          <% } %>
-        <h1>Login</h1>
-        <form method="POST" action="/login">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="username" name="username">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <%- include('../templates/head.ejs') -%>
+    <body class="bg-primary">
+        <%- include('../templates/header.ejs') -%>
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-5 text-white">
+              <div class="badge badge-warning text-wrap d-inline">Please, log in to make an order!</div>
+              <h1 class="mt-2">Login</h1>
+              <% if (messages.error) { %>
+                <div class="badge badge-danger my-3"><%= messages.error %></div>
+              <% } %>
+              <form method="POST" action="/login">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="username" name="username">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <button type="submit" class="btn btn-warning float-right">Log in</button>
+              </form>
+              <a class="text-center" href="/login/register">Create an account!</a>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            <div class="col"></div>
+          </div>
+        </div>
     </body>
 </html>

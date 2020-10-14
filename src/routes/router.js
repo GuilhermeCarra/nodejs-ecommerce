@@ -17,9 +17,10 @@ app.use(helmet())
 app.use(express.static(config.root));
 
 // routes
-app.use('/login', require('./login.js'))
 app.use('/', require('./main.js'))
+app.use('/login', require('./login.js'))
 app.use('/dashboard', require('./dashboard.js'))
+app.use('/ajax', require('./ajax.js'))
 
 // server initialization
 app.listen(process.env.APP_PORT, () => console.log('Server is running'));

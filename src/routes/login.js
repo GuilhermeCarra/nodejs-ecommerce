@@ -29,8 +29,12 @@ router.use(session({
 }))
 
 router.use(passport.initialize());
-
 router.use(passport.session());
+
+router.use(function(req,res,next) {
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+});
 
 router.use(bodyParser.json()); // support json encoded bodies
 
@@ -73,12 +77,12 @@ passport.deserializeUser(async function(id, done) {
 });
 
 // login page
-router.get("/", (req, res) => {
+router.get("/", notAuthenticated(), (req, res) => {
     res.render(`${config.views}/public/login.ejs`);
 });
 
 router.post("/", passport.authenticate('local', {
-    successRedirect: '/login/success',
+    successRedirect: '/login',
     failureRedirect: '/login',
     failureFlash: true
 }));
@@ -87,7 +91,7 @@ router.post("/", passport.authenticate('local', {
 router.get("/logout", (req, res) => {
     req.logout();
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 // registration page
@@ -106,16 +110,11 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// test
-router.get("/success", authenticate(),  (req, res) => {
-    res.send('success')
-});
-
 // auth verify middleware
-function authenticate () {
+function notAuthenticated() {
 	return (req, res, next) => {
-	    if (req.isAuthenticated()) return next();
-	    res.redirect('/login')
+        if (!req.isAuthenticated()) return next();
+        res.redirect('/hamburguers')
 	}
 }
 
