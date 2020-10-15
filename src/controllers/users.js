@@ -26,7 +26,6 @@ const controller = class UsersController {
     }
 
     getUserById(id){
-        console.log(id)
         return new Promise((resolve,reject) => {
             this.con.query('SELECT * FROM `users` WHERE `id` = "'+id+'"', function (err, result) {
                 if (result.length < 1) {
@@ -37,6 +36,31 @@ const controller = class UsersController {
             });
         });
     }
+
+    update(name, email, user) {
+        return new Promise((resolve,reject) => {
+            this.con.query('UPDATE `users` SET `name` = ? , `email` = ? WHERE `id` = ?', [name,email,user] , function (err, result) {
+                if (err) {
+                    reject(new Error(err));
+                } else {
+                    resolve('Success');
+                }
+            });
+        });
+    }
+
+    updatePassword(hashed, user) {
+        return new Promise((resolve,reject) => {
+            this.con.query('UPDATE `users` SET `password` = ? WHERE `id` = ?', [hashed,user] , function (err, result) {
+                if (err) {
+                    reject(new Error(err));
+                } else {
+                    resolve('Success');
+                }
+            });
+        });
+    }
+
 }
 
 module.exports = controller;
