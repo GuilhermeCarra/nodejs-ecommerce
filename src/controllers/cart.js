@@ -11,7 +11,7 @@ const controller = class ProductsController {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT content FROM `cart` WHERE `user_id` ="'+user+'"', function (err, result) {
                 if(err) reject(new Error('Database connection error'));
-                if(result.length < 1) {
+                if(result.length == undefined) {
                     reject();
                 } else {
                     resolve(result[0]);
@@ -60,12 +60,21 @@ const controller = class ProductsController {
             try {
                 let cartContent = await this.getContent(user);
                 let cartProducts = JSON.parse(cartContent.content);
+                let found = false;
 
                 for (let cartProduct of cartProducts) {
                     if (cartProduct.id == updateProduct.id && cartProduct.size == updateProduct.size) {
-                        cartProduct.quantity = updateProduct.quantity;
+                        found = true;
+                        if (updateProduct.quantity > 0) {
+                            cartProduct.quantity = updateProduct.quantity;
+                        } else {
+                            let index = cartProducts.indexOf(cartProduct);
+                            cartProducts.splice(index, 1);
+                        }
                     }
                 }
+
+                if (!found) cartProducts.push(updateProduct);
 
                 cartProducts = JSON.stringify(cartProducts);
 
@@ -77,6 +86,18 @@ const controller = class ProductsController {
             } catch {
                 reject(new Error('Could not access cart'))
             }
+        });
+    }
+
+    empty(user) {
+        return new Promise((resolve,reject) => {
+            this.con.query('DELETE FROM `cart` WHERE `user_id` ="'+user+'"', function (err, result) {
+                if(err) {
+                    reject(new Error('Database connection error'))
+                } else {
+                    resolve('Cart emptied');
+                }
+            });
         });
     }
 }
