@@ -43,8 +43,13 @@ router.get("/checkStock", async (req, res) => {
 router.post("/addToCart", async (req, res) => {
     const CartController = require('../controllers/cart.js');
     const Cart = new CartController();
+    let response;
 
-    let response = await Cart.addToCart(req.body.addToCart, req.session.passport.user);
+    try {
+        response = await Cart.addToCart(req.body.addToCart, req.session.passport.user);
+    } catch (e) {
+        response = e;
+    }
 
     res.send(response)
 });
@@ -55,7 +60,6 @@ router.post("/updateCart", async (req, res) => {
     const Cart = new CartController();
 
     let response = await Cart.update(req.body.updateProduct, req.session.passport.user);
-    console.log(response)
     res.send(response)
 });
 
