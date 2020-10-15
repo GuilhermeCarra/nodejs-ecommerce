@@ -60,6 +60,29 @@ router.get("/order", authenticate(), async (req, res) => {
     res.render(`${config.views}/public/order.ejs`, {product: product});
 });
 
+// cart page
+router.get("/cart", authenticate(), async (req, res) => {
+    const ProductsController = require('../controllers/products.js');
+    const Products = new ProductsController();
+    const CartController = require('../controllers/cart.js');
+    const Cart = new CartController();
+    let cartContent;
+    let products;
+
+    try {
+        cartContent = await Cart.getContent(req.session.passport.user, cartPage = true);
+        cartContent = JSON.parse(cartContent.content);
+        let idList = cartContent.map(({ id }) => id)
+        idList = Array.from(new Set(idList)).toString();
+        console.log(idList);
+        products = await Products.getByIdArray(idList);
+    } catch {
+        cartContent = false;
+    }
+    products = JSON.parse(JSON.stringify(products))
+    res.render(`${config.views}/public/cart.ejs`, {cart: cartContent, products: products});
+});
+
 // auth verify middleware
 function authenticate () {
 	return (req, res, next) => {
@@ -67,5 +90,6 @@ function authenticate () {
 	    res.redirect('/login')
 	}
 }
+
 
 module.exports = router;
