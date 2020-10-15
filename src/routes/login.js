@@ -17,6 +17,8 @@ const bodyParser = require('body-parser')
 const flash = require('express-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const csurf = require('csurf');
 
 // global middleware
 router.use(session({
@@ -39,6 +41,10 @@ router.use(function(req,res,next) {
 router.use(bodyParser.json()); // support json encoded bodies
 
 router.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+
+router.use(cookieParser());
+
+router.use(csurf({ cookie: true }));
 
 router.use(flash());
 
@@ -78,7 +84,7 @@ passport.deserializeUser(async function(id, done) {
 
 // login page
 router.get("/", notAuthenticated(), (req, res) => {
-    res.render(`${config.views}/public/login.ejs`);
+    res.render(`${config.views}/public/login.ejs`, { csrfToken: req.csrfToken() });
 });
 
 router.post("/", passport.authenticate('local', {
@@ -96,7 +102,7 @@ router.get("/logout", (req, res) => {
 
 // registration page
 router.get("/register", (req, res) => {
-    res.render(`${config.views}/public/register.ejs`);
+    res.render(`${config.views}/public/register.ejs`, { csrfToken: req.csrfToken() });
 });
 
 router.post("/register", async (req, res) => {
@@ -108,6 +114,60 @@ router.post("/register", async (req, res) => {
     } catch {
         res.redirect('/register');
     }
+});
+
+// Profile page
+router.get("/profile", async (req, res) => {
+    const UsersController = require('../controllers/users.js');
+    const User = new UsersController();
+    let user;
+    let msg = req.query.success;
+
+    try {
+        user = await User.getUserById(req.session.passport.user);
+    } catch (e) {
+        throw e;
+    }
+
+    res.render(`${config.views}/public/profile.ejs`, {user: user, msg: msg, csrfToken: req.csrfToken() });
+});
+
+// Profile update
+router.post("/profile", async (req, res) => {
+    const UsersController = require('../controllers/users.js');
+    const User = new UsersController();
+    const userId = req.session.passport.user;
+
+    try {
+        await User.update(req.body.name, req.body.email, userId);
+        if (req.body.password != "") {
+            hashedPassword = await bcrypt.hash(req.body.password, 10);
+            User.updatePassword(hashedPassword, userId);
+        }
+        res.redirect('/login/profile?success=true');
+    } catch(e) {
+        res.redirect('/login/profile?success=false');
+    }
+});
+
+// Reset Password Form
+router.get("/reset", async (req, res) => {
+    let msg = req.query.success;
+    res.render(`${config.views}/public/reset.ejs`, {msg: msg, csrfToken: req.csrfToken() });
+});
+
+// Reset Password
+router.post("/reset", async (req, res) => {
+    const UsersController = require('../controllers/users.js');
+    const User = new UsersController();
+
+    try {
+        await User.getUserByEmail(req.body.email);
+        res.redirect('/login/reset?success=true');
+    } catch {
+        res.redirect('/login/reset?success=false');
+    }
+
 });
 
 // auth verify middleware
