@@ -70,17 +70,52 @@ router.get("/cart", authenticate(), async (req, res) => {
     let products;
 
     try {
-        cartContent = await Cart.getContent(req.session.passport.user, cartPage = true);
+        cartContent = await Cart.getContent(req.session.passport.user);
         cartContent = JSON.parse(cartContent.content);
         let idList = cartContent.map(({ id }) => id)
         idList = Array.from(new Set(idList)).toString();
-        console.log(idList);
         products = await Products.getByIdArray(idList);
     } catch {
         cartContent = false;
     }
-    products = JSON.parse(JSON.stringify(products))
+
+    if (cartContent) products = JSON.parse(JSON.stringify(products))
     res.render(`${config.views}/public/cart.ejs`, {cart: cartContent, products: products});
+});
+
+// checkout process
+router.get("/checkout", authenticate(), async (req, res) => {
+    res.render(`${config.views}/public/checkoutProcess.ejs`);
+});
+
+// checkout order
+router.post("/checkout", authenticate(), async (req, res) => {
+    const CartController = require('../controllers/cart.js');
+    const Cart = new CartController();
+
+    const OrdersController = require('../controllers/orders.js');
+    const Orders = new OrdersController();
+
+    let cartContent;
+    let orderId;
+    let userId = req.session.passport.user;
+
+    try {
+        cartContent = await Cart.getContent(userId);
+        cartContent = JSON.parse(cartContent.content);
+        orderId = await Orders.create({costumer_id: userId});
+        Orders.saveOrderProducts(orderId, cartContent)
+        Cart.empty(userId);
+    } catch(e) {
+        throw e;
+    }
+
+    res.render(`${config.views}/public/checkout.ejs`, {cart: cartContent, products: products});
+});
+
+// contact page
+router.get("/contact", (req, res) => {
+    res.render(`${config.views}/public/contact.ejs`);
 });
 
 // auth verify middleware
