@@ -26,7 +26,13 @@ for (let addBtn of addButtons) {
         fetch(stockCheck)
         .then(response => response.json())
         .then(data => {
-            if(quantity + 1 <= data.stock) counter.textContent = quantity +1;
+            if(quantity + 1 <= data.stock) {
+                counter.textContent = quantity +1;
+            } else {
+                const popoverBtn = e.target.nodeName == 'path' ? e.target.parentNode : e.target;
+                $(popoverBtn).popover({trigger: 'focus'}).popover('show');
+                setTimeout(() => $(popoverBtn).popover('hide'),2200);
+            }
         });
     });
 }
@@ -54,6 +60,10 @@ document.querySelector('#cartAdd').addEventListener('click', () => {
             addToCart.push({'id': id, 'size': size.dataset.size, 'quantity': quantity});
         }
     }
+    let options = {
+        trigger: 'manual',
+        animation: true,
+    }
 
     if (addToCart.length > 0) {
         var stockCheck = new Request('/ajax/addToCart', {
@@ -63,11 +73,16 @@ document.querySelector('#cartAdd').addEventListener('click', () => {
         });
 
         fetch(stockCheck)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(() => {
+                options.title = 'Great! 🍔';
+                options.content = 'Products added to the cart!';
+                $('#cartAdd').popover('dispose').popover(options).popover('show');
+                setTimeout(() => $('#cartAdd').popover('hide'),2200);
             });
     } else {
-        console.log('Select one size to add it to the Cart');
+        options.title = 'Oops... ❌';
+        options.content = 'No product selected';
+        $('#cartAdd').popover('dispose').popover(options).popover('show');
+        setTimeout(() => $('#cartAdd').popover('hide'),2200);
     }
 });
