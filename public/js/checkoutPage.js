@@ -18,7 +18,8 @@ for (let addBtn of addButtons) {
             .then(data => {
                 if(quantity + 1 <= data.stock) {
                     quantity = counter.textContent = quantity +1;
-                    updateCart({id: id, size: size, quantity: quantity})
+                    updateCart({id: id, size: size, quantity: quantity});
+                    updateTotal(id, size, quantity, operation = 'add');
                 }
         });
     });
@@ -37,21 +38,29 @@ for (let removeBtn of removeButtons) {
         if(quantity > 0) {
             quantity = counter.textContent = quantity - 1 ;
             updateCart({id: id, size: size, quantity: quantity})
+            updateTotal(id, size, quantity, operation = 'remove');
         }
     });
 }
 
 function updateCart(modifiedProduct) {
-    // console.log(modifiedProduct)
     var stockCheck = new Request('/ajax/updateCart', {
         headers: { "Content-Type": "application/json" },
         method: 'POST',
         body: JSON.stringify({'updateProduct':modifiedProduct})
     });
 
-    fetch(stockCheck)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-    });
+    fetch(stockCheck);
+}
+
+function updateTotal(id, size, qnty, operation) {
+    let price = parseFloat(document.querySelector(`#unityPrice-${size}${id}`).textContent);
+    let subTotal = document.querySelector(`#totalPrice-${size}${id}`);
+    let total = document.querySelector(`#cartTotal`);
+    subTotal.textContent = price * qnty;
+    if(operation == 'add') {
+        total.textContent = parseFloat(total.textContent) + price;
+    } else {
+        total.textContent = parseFloat(total.textContent) - price;
+    }
 }
