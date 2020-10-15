@@ -10,9 +10,9 @@ const controller = class ProductsController {
     getContent(user) {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT content FROM `cart` WHERE `user_id` ="'+user+'"', function (err, result) {
-                if(err) throw err;
+                if(err) reject(new Error('Database connection error'));
                 if(result.length < 1) {
-                    reject(result[0]);
+                    reject();
                 } else {
                     resolve(result[0]);
                 }
@@ -40,16 +40,42 @@ const controller = class ProductsController {
                 cartProducts = JSON.stringify(cartProducts.concat(newProducts));
 
                 this.con.query('UPDATE `cart` SET `content` = ? WHERE `user_id` = ?', [cartProducts,user], function (err, result) {
-                    if(err) throw err;
+                    if(err) reject(new Error('Database connection error'));
                     resolve('Added to the cart!');
                 });
 
             } catch {
                 let cartRow = {user_id: user, content: JSON.stringify(newProducts)};
                 this.con.query('INSERT INTO `cart` SET ?', cartRow, function (err, result) {
-                    if(err) throw err;
+                    if(err) reject(new Error('Database connection error'));
                     resolve('Added to the cart!');
                 });
+            }
+        });
+    }
+
+    update(updateProduct, user) {
+        return new Promise( async(resolve,reject) => {
+
+            try {
+                let cartContent = await this.getContent(user);
+                let cartProducts = JSON.parse(cartContent.content);
+
+                for (let cartProduct of cartProducts) {
+                    if (cartProduct.id == updateProduct.id && cartProduct.size == updateProduct.size) {
+                        cartProduct.quantity = updateProduct.quantity;
+                    }
+                }
+
+                cartProducts = JSON.stringify(cartProducts);
+
+                this.con.query('UPDATE `cart` SET `content` = ? WHERE `user_id` = ?', [cartProducts,user], function (err, result) {
+                    if(err) reject(new Error('Database connection error'));
+                    resolve('Added to the cart!');
+                });
+
+            } catch {
+                reject(new Error('Could not access cart'))
             }
         });
     }
