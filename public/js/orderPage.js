@@ -26,7 +26,7 @@ for (let addBtn of addButtons) {
         fetch(stockCheck)
         .then(response => response.json())
         .then(data => {
-            if(quantity + 1 < data.stock) counter.textContent = quantity +1;
+            if(quantity + 1 <= data.stock) counter.textContent = quantity +1;
         });
     });
 }
