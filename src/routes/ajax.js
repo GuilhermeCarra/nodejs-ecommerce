@@ -49,4 +49,14 @@ router.post("/addToCart", async (req, res) => {
     res.send(response)
 });
 
+// Modify products on cart page
+router.post("/updateCart", async (req, res) => {
+    const CartController = require('../controllers/cart.js');
+    const Cart = new CartController();
+
+    let response = await Cart.update(req.body.updateProduct, req.session.passport.user);
+    console.log(response)
+    res.send(response)
+});
+
 module.exports = router;
