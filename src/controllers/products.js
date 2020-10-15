@@ -35,7 +35,7 @@ const controller = class ProductsController {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT id, title, sizes.size, sizes.price FROM products JOIN sizes ON products.id = sizes.product_id WHERE `id` IN ('+idList+')', function (err, result) {
                 if(err) reject(err)
-                if (result.length < 1) {
+                if (result == undefined) {
                     reject(new Error("Products not registered"));
                 } else {
                     resolve(result);
@@ -72,24 +72,3 @@ module.exports = controller;
 
 
 
-/* INSERT INTO products (title,description) values
-('The Original','Hamburger 100% Beef 🐂, american cheese 🧀, bacon 🥓, tomato 🍅, lettuce 🥗 and our famous sauce.');
-
-INSERT INTO sizes (product_id,price,size,stock) values
-(1, 9.50 ,'L', 20),
-(1, 8.50 ,'M', 33),
-(1, 7.50 ,'P', 10);
-
-create table products (
-id INT AUTO_INCREMENT PRIMARY KEY,
-title varchar(20),
-description varchar(200)
-); */
-
-/* create table sizes (
-    product_id INT,
-    size varchar(3),
-    price DECIMAL(10,2),
-    stock int(10),
-    FOREIGN KEY(product_id) REFERENCES products(id)
-); */
