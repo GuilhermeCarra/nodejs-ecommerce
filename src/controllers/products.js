@@ -31,6 +31,19 @@ const controller = class ProductsController {
         });
     }
 
+    getByIdArray(idList) {
+        return new Promise((resolve,reject) => {
+            this.con.query('SELECT id, title, sizes.size, sizes.price FROM products JOIN sizes ON products.id = sizes.product_id WHERE `id` IN ('+idList+')', function (err, result) {
+                if(err) reject(err)
+                if (result.length < 1) {
+                    reject(new Error("Products not registered"));
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
+
     checkStock(id, size) {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT stock FROM sizes WHERE product_id = '+id+' AND size = "'+size+'"', function (err, result) {
