@@ -14,7 +14,7 @@
         <div class="container-fluid">
 			<div class="row mt-3">
 				<div class="col"></div>
-				<div class="col-7 row justify-content-around">
+				<div class="col-7 row justify-content-around user-select-none">
 
 					<div class="card mb-3 mt-4 text-white bg-dark mb-3">
 						<div class="row no-gutters">
@@ -40,24 +40,27 @@
 											<% for (let i = 0; i < product.length; i++) { %>
 												<div class="mb-3">
 													<% if (product[i].stock > 1) { %>
-														<button type="button" class="btn btn-light">SIZE <%= product[i].size %><br>€<%= product[i].price %></button>
+														<button type="button" class="btn btn-light"><%= product[i].size %><br>€<%= product[i].price %></button>
 														<div class="text-center mt-2" data-product="<%= product[i].id %>" data-size="<%= product[i].size %>">
 															<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 																<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
 															</svg>
 															<span class="h5" id="counter-<%= product[i].size %>">0</span>
-															<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<svg role="button" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" 
+																data-toggle="popover" data-placement="right" title="Sorry... 😔" data-content="No more in stock!">
 																<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
 															</svg>
 														</div>
 													<% } else { %>
-														<button type="button" class="btn btn-light" disabled>SIZE <%= product[i].size %><br>NOT AVAILABLE</button>
+														<button type="button" class="btn btn-light" disabled><%= product[i].size %><br>NOT AVAILABLE</button>
 													<% } %>
 												</div>
 											<% } %>
 										</div>
 										<div class="align-self-center text-center mt-3">
-											<button class="btn btn-warning" id="cartAdd">Add to cart</button>
+											<button class="btn btn-lg btn-warning" id="cartAdd" data-toggle="popover" data-placement="left">
+												Add to cart
+											</button>
 										</div>
 									</div>
 								</div>
@@ -70,6 +73,8 @@
 				<div class="col"></div>
 			</div>
 		</div>
+		<script src="/node_modules/jquery/dist/jquery.js"></script>
+		<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="/public/js/orderPage.js"></script>
     </body>
 </html>
