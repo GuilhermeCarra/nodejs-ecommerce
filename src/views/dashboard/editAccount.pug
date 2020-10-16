@@ -1,0 +1,32 @@
+extends layout/main.pug
+
+append content
+    h2.col-12.mt-5 Products
+    hr
+    form(method="POST" action="/dashboard/account/save")
+        .row.justify-content-center.mt-5
+            input(type="hidden" value=user.id name="id")
+            table.table.col-10
+                if !user
+                    h3.badge-danger.p-3.rounded User not found!
+                else
+                    thead
+                        tr
+                        th(scope='col') #
+                        th(scope='col') Full name
+                        th(scope='col') Email
+                        th(scope='col') Role
+                        th(scope='col') Password
+                            .badge.badge-danger.ml-1 fill to change it
+                    tbody
+                        tr
+                        th(scope='row')= user.id
+                        th
+                            input(type="text" name="name" value=user.name)
+                        th
+                            input(type="email" name="email" value=user.email)
+                        th
+                            input(type="text" name="type" value=user.user_type)
+                        th
+                            input(type="password" name="password")
+            input(type="submit").btn-lg.btn-primary.col-3.mt-4

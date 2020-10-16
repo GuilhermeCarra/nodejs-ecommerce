@@ -25,6 +25,19 @@ const controller = class UsersController {
         });
     }
 
+    isAdmin(id){
+        return new Promise((resolve,reject) => {
+            this.con.query('SELECT * FROM `users` WHERE `id` = "'+id+'"', function (err, result) {
+                if (result == undefined) {
+                    reject(new Error("User not found"));
+                } else {
+                    if (result[0].user_type) resolve(result[0].user_type);
+                    reject();
+                }
+            });
+        });
+    }
+
     getUserById(id){
         return new Promise((resolve,reject) => {
             this.con.query('SELECT * FROM `users` WHERE `id` = "'+id+'"', function (err, result) {
@@ -61,6 +74,29 @@ const controller = class UsersController {
         });
     }
 
+    getEmployees() {
+        return new Promise((resolve,reject) => {
+            this.con.query('SELECT * FROM `users` WHERE `user_type` in ("employee","admin")' , function (err, result) {
+                if (err) {
+                    reject(new Error(err));
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
+
+    updateEmployee(user, id) {
+        return new Promise((resolve,reject) => {
+            this.con.query('UPDATE `users` SET ? WHERE `id` = ?', [user, id] , function (err, result) {
+                if (err) {
+                    reject(new Error(err));
+                } else {
+                    resolve('Account changes saved successfully');
+                }
+            });
+        });
+    }
 }
 
 module.exports = controller;

@@ -35,7 +35,7 @@
 }
 
 .carousel-container {
-  box-shadow: inset 0 0 70px #0c4150;
+  box-shadow: inset 0 0 70px #96af08;
 }
 
 .carousel-item {
@@ -50,4 +50,29 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.sidebarMenu {
+  height: 91vh;
+}
+
+.sidebarMenu a {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.623)!important;
+}
+
+.sidebarMenu a:hover {
+  color: #222 !important;
+  transform: translateX(5px);
+  transition: ease-in-out 200ms;
+}
+
+header .h6:hover {
+  color: rgb(224, 224, 87) !important;
+  transform: translateX(5px);
+  transition: ease-in-out 200ms;
+}
+
+.img-table {
+  max-width: 100px;
 }

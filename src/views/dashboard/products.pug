@@ -1,0 +1,30 @@
+extends layout/main.pug
+
+append content
+    h2.col-12.mt-5 Products
+    hr
+    .row.justify-content-center
+        if msg
+            if msg.includes('successfully')
+                h6.badge-success.p-2.rounded.col-3.text-center= msg
+            else
+                h6.badge-danger.p-2.rounded.col-3.text-center= msg
+        table.table.col-10.mt-5
+            if !products
+                h3.badge-danger.p-3.rounded Database products not found!
+            else
+                thead
+                    tr
+                    th(scope='col') #
+                    th(scope='col') Title
+                    th(scope='col') Description
+                    th(scope='col') Edit
+                tbody
+                    each product in products
+                        tr
+                        th(scope='row')= product.id
+                        td= product.title
+                        td= product.description
+                        td(role="button")
+                            - var editHref = "/dashboard/products/edit?id="+product.id
+                            a(href=editHref) ✏️

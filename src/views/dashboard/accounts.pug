@@ -1,0 +1,32 @@
+extends layout/main.pug
+
+append content
+    h2.col-12.mt-5 Accounts
+    hr
+    .row.justify-content-center.mt-5
+        if msg
+            if msg.includes('successfully')
+                h6.badge-success.p-2.rounded= msg
+            else
+                h6.badge-danger.p-2.rounded= msg
+        table.table.col-10.mt-5
+            if !users
+                h3.badge-danger.p-3.rounded Admins/employees not found!
+            else
+                thead
+                    tr
+                    th(scope='col') #
+                    th(scope='col') Full name
+                    th(scope='col') E-mail
+                    th(scope='col') Role
+                    th(scope='col') Edit
+                tbody
+                    each user in users
+                        tr
+                        th(scope='row')= user.id
+                        td= user.name
+                        td= user.email
+                        td= user.user_type
+                        td(role="button")
+                            - var editHref = "/dashboard/accounts/edit?id="+user.id
+                            a(href=editHref) ✏️

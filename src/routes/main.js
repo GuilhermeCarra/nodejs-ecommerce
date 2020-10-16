@@ -22,8 +22,18 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.use(function(req,res,next) {
+router.use(async function(req,res,next) {
+    const UsersController = require('../controllers/users.js');
+    const User = new UsersController();
+
     res.locals.isAuthenticated = req.isAuthenticated();
+
+    try {
+        res.locals.isAdmin = await User.isAdmin(req.session.passport.user);
+    } catch {
+        res.locals.isAdmin = false;
+    }
+
     next();
 });
 
