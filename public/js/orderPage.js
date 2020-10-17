@@ -78,6 +78,7 @@ document.querySelector('#cartAdd').addEventListener('click', () => {
                 options.content = 'Products added to the cart!';
                 $('#cartAdd').popover('dispose').popover(options).popover('show');
                 setTimeout(() => $('#cartAdd').popover('hide'),2200);
+                $('span[id^="counter"]').text('0');
             });
     } else {
         options.title = 'Oops... ❌';
