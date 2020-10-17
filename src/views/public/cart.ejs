@@ -26,7 +26,7 @@
 					<% if (cart) { %>
 						<% let total = 0 %>
 						<% for(let product of cart) { %>
-								<% let price = products.find( ({id, size}) => id == 1 && size == product.size).price %>
+								<% let price = products.find( ({id, size}) => id == product.id && size == product.size).price %>
 								<img class="col-1 float-left mt-3" src="/public/images/products/<%= product.id %>-1.jpg">
 								<h5 class="col-3 my-auto"><%= products.find( ({id}) => id == product.id).title %></h5>
 								<h5 class="col-2 my-auto"><%= product.size %></h5>
@@ -57,6 +57,6 @@
 				<div class="col"></div>
 			</div>
 		</div>
-		<script src="/public/js/checkoutPage.js"></script>
+		<script src="/public/js/cartPage.js"></script>
     </body>
 </html>
