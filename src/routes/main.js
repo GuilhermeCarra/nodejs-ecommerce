@@ -8,6 +8,8 @@ const session = require('express-session');
 const passport = require('passport');
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore(config.sqlCon);
+const bodyParser = require('body-parser')
+const { check, validationResult } = require('express-validator');
 
 // global middleware
 router.use(session({
@@ -18,6 +20,8 @@ router.use(session({
     resave: false,
     saveUninitialized: false
 }));
+router.use(bodyParser.json()); // support json encoded bodies
+router.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -95,32 +99,53 @@ router.get("/cart", authenticate(), async (req, res) => {
 
 // checkout process
 router.get("/checkout", authenticate(), async (req, res) => {
-    res.render(`${config.views}/public/checkoutProcess.ejs`);
+    let formErrors = req.session.formErrors ? req.session.formErrors : false;
+    req.session.formErrors = false;
+    res.render(`${config.views}/public/checkoutProcess.ejs`, {errors: formErrors});
 });
 
 // checkout order
-router.post("/checkout", authenticate(), async (req, res) => {
-    const CartController = require('../controllers/cart.js');
-    const Cart = new CartController();
+router.post("/checkout", authenticate(),
+    [check('city').isLength({ min: 3 }),
+    check('address').isLength({ min: 3 }),
+    check('city').isLength({ min: 3 }),
+    check('zip').isNumeric(),
+    check('card').isNumeric(),
+    check('expMonth').isLength({min: 2, max: 2}),
+    check('expYear').isLength({min: 2, max: 2}),
+    check('cvCode').isLength({min: 3, max: 3})],
+async (req, res) => {
+    const errors = validationResult(req)
 
-    const OrdersController = require('../controllers/orders.js');
-    const Orders = new OrdersController();
+    if (!errors.isEmpty()) {
+        req.session.formErrors = errors.array();
+        res.redirect('/checkout');
 
-    let cartContent;
-    let orderId;
-    let userId = req.session.passport.user;
+    } else {
 
-    try {
-        cartContent = await Cart.getContent(userId);
-        cartContent = JSON.parse(cartContent.content);
-        orderId = await Orders.create({costumer_id: userId});
-        Orders.saveOrderProducts(orderId, cartContent)
-        Cart.empty(userId);
-    } catch(e) {
-        throw e;
+        const CartController = require('../controllers/cart.js');
+        const Cart = new CartController();
+
+        const OrdersController = require('../controllers/orders.js');
+        const Orders = new OrdersController();
+
+        let cartContent;
+        let orderId;
+        let userId = req.session.passport.user;
+
+        try {
+            cartContent = await Cart.getContent(userId);
+            cartContent = JSON.parse(cartContent.content);
+            orderId = await Orders.create({costumer_id: userId});
+            Orders.saveOrderProducts(orderId, cartContent)
+            Cart.empty(userId);
+        } catch(e) {
+            throw e;
+        }
+
+        res.render(`${config.views}/public/checkout.ejs`);
     }
 
-    res.render(`${config.views}/public/checkout.ejs`, {cart: cartContent, products: products});
 });
 
 // contact page
@@ -135,6 +160,5 @@ function authenticate () {
 	    res.redirect('/login')
 	}
 }
-
 
 module.exports = router;
