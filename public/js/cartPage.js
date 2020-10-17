@@ -59,8 +59,10 @@ function updateTotal(id, size, qnty, operation) {
     let total = document.querySelector(`#cartTotal`);
     subTotal.textContent = price * qnty;
     if(operation == 'add') {
+        if (total.textContent == "0") document.querySelector('input[value="Checkout"]').disabled = false;
         total.textContent = parseFloat(total.textContent) + price;
     } else {
         total.textContent = parseFloat(total.textContent) - price;
+        if (total.textContent == "0") document.querySelector('input[value="Checkout"]').disabled = true;
     }
 }
