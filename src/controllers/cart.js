@@ -11,7 +11,7 @@ const controller = class ProductsController {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT content FROM `cart` WHERE `user_id` ="'+user+'"', function (err, result) {
                 if(err) reject(new Error('Database connection error'));
-                if(result.length == undefined) {
+                if(result == undefined) {
                     reject();
                 } else {
                     resolve(result[0]);
@@ -103,37 +103,3 @@ const controller = class ProductsController {
 }
 
 module.exports = controller;
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* INSERT INTO products (title,description) values
-('The Original','Hamburger 100% Beef 🐂, american cheese 🧀, bacon 🥓, tomato 🍅, lettuce 🥗 and our famous sauce.');
-
-INSERT INTO sizes (product_id,price,size,stock) values
-(1, 9.50 ,'L', 20),
-(1, 8.50 ,'M', 33),
-(1, 7.50 ,'P', 10);
-
-create table products (
-id INT AUTO_INCREMENT PRIMARY KEY,
-title varchar(20),
-description varchar(200)
-); */
-
-/* create table sizes (
-    product_id INT,
-    size varchar(3),
-    price DECIMAL(10,2),
-    stock int(10),
-    FOREIGN KEY(product_id) REFERENCES products(id)
-); */
