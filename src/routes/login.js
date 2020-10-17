@@ -169,7 +169,31 @@ router.post("/reset", async (req, res) => {
     const User = new UsersController();
 
     try {
-        await User.getUserByEmail(req.body.email);
+        user = await User.getUserByEmail(req.body.email);
+
+        const nodemailer = require('nodemailer');
+
+        const randomPass = Math.random().toString(36).slice(-8);
+        hashedPassword = await bcrypt.hash(randomPass, 10);
+        User.updatePassword(hashedPassword, user.id);
+
+        let transport = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            auth: {
+               user: process.env.EMAIL_USER,
+               pass: process.env.EMAIL_PASS
+            }
+        });
+        const message = {
+            from: 'service@burgersco.com',
+            to: user.email,
+            subject: 'Password Reset - Burges Co.',
+            text: `Hey ${user.name}, your password was resetted at Burgers Co.\nYour new password is: ${randomPass}`
+        };
+
+        transport.sendMail(message);
+
         res.redirect('/login/reset?success=true');
     } catch {
         res.redirect('/login/reset?success=false');
