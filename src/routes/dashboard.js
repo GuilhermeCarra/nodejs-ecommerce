@@ -118,6 +118,7 @@ router.post("/product/save", authenticateEmployee(), upload.array('img',3), asyn
         if (fs.existsSync(`${path}-1`)) fs.renameSync(`${path}-1`,`${path}-1.jpg`);
         if (fs.existsSync(`${path}-2`)) fs.renameSync(`${path}-2`,`${path}-2.jpg`);
         if (fs.existsSync(`${path}-3`)) fs.renameSync(`${path}-3`,`${path}-3.jpg`);
+
     } catch(e) {
         req.session.msg = e;
     }

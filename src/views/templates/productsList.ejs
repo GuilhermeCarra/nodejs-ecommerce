@@ -1,0 +1,14 @@
+<% if (products) { %>
+    <% for (let i=0 ; i < products.length; i++) { %>
+        <div class="card mt-5 mr-2 col-3">
+            <img src="public/images/products/<%= products[i].id %>-1.jpg" class="card-img-top" alt="burger photo">
+            <div class="card-body">
+                <h5 class="card-title"><%= products[i].title %></h5>
+                <p class="card-text"><%= products[i].description %></p>
+                <a href="/order?p=<%= products[i].id %>" class="btn btn-primary">Order</a>
+            </div>
+        </div>
+    <% } %>
+<% } else { %>
+    false
+<% } %>

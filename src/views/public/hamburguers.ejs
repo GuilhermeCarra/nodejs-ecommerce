@@ -14,10 +14,9 @@
         <div class="container-fluid">
 			<div class="row">
 				<div class="col"></div>
-				<div class="col-9 row justify-content-around">
-
+				<div class="col-9 row justify-content-around" id="productsList">
 					<% for (let i=0 ; i < products.length; i++) { %>
-						<div class="card mt-3" style="width: 18rem;">
+						<div class="card my-5 mr-2 col-3">
 							<img src="public/images/products/<%= products[i].id %>-1.jpg" class="card-img-top" alt="burger photo">
 							<div class="card-body">
 								<h5 class="card-title"><%= products[i].title %></h5>
@@ -26,11 +25,11 @@
 							</div>
 						</div>
 					<% } %>
-
 				</div>
 				<div class="col"></div>
 			</div>
 		</div>
+		<button class="btn-lg btn-warning d-block mx-auto my-5" id="loadBtn" data-page='1'>Load More</button>
 		<script src="/public/js/productsPage.js"></script>
     </body>
 </html>

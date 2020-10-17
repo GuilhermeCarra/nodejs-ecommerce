@@ -54,6 +54,21 @@ router.post("/addToCart", async (req, res) => {
     res.send(response)
 });
 
+// Load paginated products
+router.get("/loadPage", async (req, res) => {
+    const ProductsController = require('../controllers/products.js');
+    const Products = new ProductsController();
+    let products;
+
+    try {
+        products = await Products.getPaginated(req.query.page);
+    } catch (e) {
+        products = false;
+    }
+
+    res.render(`${config.views}/templates/productsList.ejs`, {products: products});
+});
+
 // Modify products on cart page
 router.post("/updateCart", async (req, res) => {
     const CartController = require('../controllers/cart.js');

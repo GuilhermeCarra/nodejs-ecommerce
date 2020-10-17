@@ -101,6 +101,18 @@ const controller = class ProductsController {
             });
         });
     }
+
+    getPaginated(page) {
+        return new Promise((resolve,reject) => {
+            this.con.query('SELECT * FROM `products` ORDER BY ID ASC LIMIT 3 OFFSET ?', [page*3], function (err, result) {
+                if (result.length < 1) {
+                    reject(new Error("No more products"));
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
 }
 
 module.exports = controller;

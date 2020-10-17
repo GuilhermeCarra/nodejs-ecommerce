@@ -52,7 +52,7 @@ router.get("/hamburguers", async (req, res) => {
     const Products = new ProductsController();
 
     try {
-        products = await Products.getAll();
+        products = await Products.getPaginated(page = 0);
     } catch (e) {
         throw e;
     }
