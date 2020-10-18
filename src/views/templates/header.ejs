@@ -1,14 +1,14 @@
 <header class="container-fluid masthead mb-auto bg-primary">
-	<div class="row text-white py-3">
-		<div class="col-3 masthead-brand text-right">
+	<div class="row text-white py-3 justify-content-between">
+		<div class="col-4 masthead-brand text-center">
 			<h3>Burgers Co.</h3>
 		</div>
-		<nav class="col-5 nav nav-masthead justify-content-center">
+		<nav class="col-4 nav nav-masthead justify-content-center">
 			<a class="nav-link active" href="/">Home</a>
 			<a class="nav-link" href="/hamburguers">Hamburguers</a>
 			<a class="nav-link" href="/contact">Contact</a>
 		</nav>
-
+		<div class="col-4 d-flex flex-row">
 		<% if (isAuthenticated) { %>
 			<a class="nav-link text-white h6" href="/cart">
 				Cart
@@ -47,5 +47,6 @@
 			</svg>
 		</a>
 		<% } %>
+	</div>
 	</div>
 </header>
