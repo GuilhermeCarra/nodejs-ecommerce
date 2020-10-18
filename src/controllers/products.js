@@ -35,6 +35,7 @@ const controller = class ProductsController {
     getProduct(id) {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT * FROM products JOIN sizes ON products.id = sizes.product_id WHERE id ='+id, function (err, result) {
+                if(err) reject(err);
                 if (result.length < 1) {
                     reject(new Error("Product not registered"));
                 } else {
