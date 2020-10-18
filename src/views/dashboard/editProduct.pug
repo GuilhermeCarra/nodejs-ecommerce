@@ -22,20 +22,23 @@ append content
                                 - var img1 = "/public/images/products/"+productSizes[0].id+"-1.jpg"
                                 img(src=img1).img-table.img-thumbnail
                             input(name="img" id="img1" type="file" accept="image/jpeg").d-none
+                            input(type="checkbox" name="img1").ml-1
                         td
                             label(for='img2', role="button")
                                 - var img2 = "/public/images/products/"+productSizes[0].id+"-2.jpg"
                                 img(src=img2).img-table.img-thumbnail
                             input(name='img' id='img2' type="file" accept="image/jpeg").d-none
+                            input(type="checkbox" name="img2").ml-1
                         td
                             label(for='img3', role="button")
                                 - var img3 = "/public/images/products/"+productSizes[0].id+"-3.jpg"
                                 img(src=img3).img-table.img-thumbnail
                             input(name='img' id='img3' type="file" accept="image/jpeg").d-none
+                            input(type="checkbox" name="img3").ml-1
                         td
                             input(value=productSizes[0].title name="title")
                         td
-                            input(value=productSizes[0].description name="description").col-12
+                            textarea(value=productSizes[0].description name="description" rows="4").col-12=productSizes[0].description
         .row.justify-content-center.mt-5
             table.table.col-10
                 h2.col-12.text-center Sizes and prices
@@ -55,3 +58,4 @@ append content
                             - var stock = "stock_"+product.size
                             input(type="number" value=product.stock name=stock)
             input(type="submit").btn-lg.btn-primary.col-10.mt-2
+            script(src="/public/js/editProduct.js")
