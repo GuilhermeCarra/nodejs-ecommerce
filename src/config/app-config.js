@@ -10,6 +10,14 @@ const config = {
         password: "",
         database: "ecommerce",
         charset : 'utf8mb4'
+    },
+    'populateCon' : {
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "ecommerce",
+        charset : 'utf8mb4',
+        multipleStatements: true
     }
 }
 
