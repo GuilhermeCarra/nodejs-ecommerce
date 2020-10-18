@@ -5,7 +5,7 @@ const controller = class OrdersController {
     constructor() {
         // mysql connection
         this.con = mysql.createConnection(config.sqlCon);
-     }
+    }
 
     create(user) {
         return new Promise((resolve,reject) => {
