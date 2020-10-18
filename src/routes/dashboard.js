@@ -115,14 +115,27 @@ router.post("/product/save", authenticateEmployee(), upload.array('img',3), asyn
     // Renaming uploaded images
     try {
         let path = `public/images/products/${id}`;
-        if (fs.existsSync(`${path}-1`)) fs.renameSync(`${path}-1`,`${path}-1.jpg`);
-        if (fs.existsSync(`${path}-2`)) fs.renameSync(`${path}-2`,`${path}-2.jpg`);
-        if (fs.existsSync(`${path}-3`)) fs.renameSync(`${path}-3`,`${path}-3.jpg`);
-
+        if (req.body.img1) fs.renameSync(`${path}-1`,`${path}-1.jpg`);
+        if (req.body.img2) {
+            if (fs.existsSync(`${path}-1`)) {
+                fs.renameSync(`${path}-1`,`${path}-2.jpg`);
+            } else {
+                fs.renameSync(`${path}-2`,`${path}-2.jpg`);
+            }
+        }
+        if(req.body.img3) {
+            if (fs.existsSync(`${path}-1`)) {
+                fs.renameSync(`${path}-1`,`${path}-3.jpg`);
+            } else if (fs.existsSync(`${path}-2`)) {
+                fs.renameSync(`${path}-2`,`${path}-3.jpg`);
+            } else {
+                fs.renameSync(`${path}-3`,`${path}-3.jpg`);
+            }
+        }
     } catch(e) {
         req.session.msg = e;
     }
-    console.log(req.session.msg);
+
     try {
         req.session.msg = await Products.updateAllDetails(product, [large,medium,small], id);
     } catch (e) {
