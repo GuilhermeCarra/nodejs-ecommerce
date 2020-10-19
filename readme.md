@@ -5,20 +5,26 @@ This project is focused in develop a Web MVC application using node.js, mysql an
 
 ## Getting Started
 After cloning this repository, excute the folowing commands to test it:
+
+* Installing dependencies:
 ````
 npm install
 ````
+* Configure your **.env** file:
 ````
-configure your ".env" file based on the file ".env.example"
+Based on the file ".env.example"
 ````
+* Creating a database:
 ````
-mysql > create database "name in your .env file" //creates a database to populate it
+mysql > create database "name in your .env file"
 ````
+* Populating the database:
 ````
-npm run database (populates the database)
+npm run database
 ````
+* Starting the server (on port specified in the **.env** file):
 ````
-npm run node (starts the server on the port specified your .env file)
+npm run node
 ````
 ## Credentials
 The "database script" populates some **users** on DB with different roles. Check the following examples:
