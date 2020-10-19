@@ -1,18 +1,18 @@
 # e-commerce with Node.js (MVC Pattern)
 ---
 ## Pill Overview
-In this project you will develop a Web focused MVC application using node.js, mysql and related technologies. It will consist of a client facing web application that users can connect to in order to see the products being sold and make purchases, a dashboard frontend application that the employees can use to perform CRUD operations on the product catalog of the application, and a backend server that will be used to host api endpoints and the database to store all the information.
+This project is focused in develop a Web focused MVC application using node.js, mysql and related technologies. It will consist of a client facing web application that users can connect to in order to see the products being sold and make purchases, a dashboard frontend application that the employees can use to perform CRUD operations on the product catalog of the application, and a backend server that will be used to host api endpoints and the database to store all the information.
 
 ## Getting Started
 After cloning this repository, excute the folowing commands to test it:
 ````
-composer global require laravel/installer
+npm install
 ````
 ````
-composer install
+mysql > create database 'name in your .env file" (create a database to populate it)
 ````
 ````
-php artisan key:generate //after created and configured the .env file
+npm run database (install)
 ````
 ````
 mySQL > CREATE DATABASE (db_name on your .env file)
