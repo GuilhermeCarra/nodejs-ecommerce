@@ -115,6 +115,19 @@ const controller = class ProductsController {
             });
         });
     }
+
+    outOfStock() {
+        return new Promise((resolve,reject) => {
+            this.con.query('SELECT * FROM `sizes` RIGHT JOIN products ON sizes.product_id = products.id WHERE sizes.stock = 0', function (err, result) {
+                if (err) reject(err);
+                if (result.length < 1) {
+                    reject(new Error("All produtcs in stock!"));
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
 }
 
 module.exports = controller;

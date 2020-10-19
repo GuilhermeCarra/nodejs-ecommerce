@@ -3,3 +3,24 @@ extends layout/main.pug
 append content
     h2.col-12.mt-5 Dashboard
     hr
+    .row.justify-content-center
+        h2.col-12.mt-2.text-center Out of Stock ⚠️
+        if !Array.isArray(products)
+            h3.badge-warning.p-3.rounded= products
+        else
+        table.table.col-10.mt-2
+            thead
+                tr
+                th(scope='col') #
+                th(scope='col') Title
+                th(scope='col') Size
+                th(scope='col') Edit
+            tbody
+                each product in products
+                    tr
+                    th(scope='row')= product.id
+                    td= product.title
+                    td= product.size
+                    td(role="button")
+                        - var editHref = "/dashboard/products/edit?id="+product.id
+                        a(href=editHref) ✏️

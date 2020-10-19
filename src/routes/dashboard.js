@@ -24,8 +24,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
-
 // global middleware
 router.use(session({
     name: process.env.SESSION_NAME,
@@ -58,8 +56,18 @@ router.use(async function(req,res,next) {
 });
 
 // Index dashboard page
-router.get("/", authenticateEmployee(), (req, res) => {
-    res.render(`${config.views}/dashboard/index.pug`);
+router.get("/", authenticateEmployee(), async (req, res) => {
+    const ProductsController = require('../controllers/products.js');
+    const Products = new ProductsController();
+    let products;
+
+    try {
+        products = await Products.outOfStock();
+    } catch (e) {
+        products = e;
+    }
+
+    res.render(`${config.views}/dashboard/index.pug`, {products: products});
 });
 
 // Products dashboard page
