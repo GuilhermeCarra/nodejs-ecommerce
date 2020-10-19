@@ -12,7 +12,7 @@ npm install
 configure your ".env" file based on the file ".env.example"
 ````
 ````
-mysql > create database 'name in your .env file" (creates a database to populate it)
+mysql > create database "name in your .env file" (creates a database to populate it)
 ````
 ````
 npm run database (populates the database)
