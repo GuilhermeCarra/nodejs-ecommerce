@@ -1,7 +1,7 @@
 # e-commerce with Node.js (MVC Pattern)
 ---
 ## Pill Overview
-This project is focused in develop a Web focused MVC application using node.js, mysql and related technologies. It will consist of a client facing web application that users can connect to in order to see the products being sold and make purchases, a dashboard frontend application that the employees can use to perform CRUD operations on the product catalog of the application, and a backend server that will be used to host api endpoints and the database to store all the information.
+This project is focused in develop a Web MVC application using node.js, mysql and related technologies. It consists of a client facing web application that users can connect to in order to see the products being sold and make purchases, a dashboard frontend application that the employees can use to perform CRUD operations on the product catalog of the application, and a backend server that will be used to host api endpoints and the database to store all the information.
 
 ## Getting Started
 After cloning this repository, excute the folowing commands to test it:
@@ -9,32 +9,34 @@ After cloning this repository, excute the folowing commands to test it:
 npm install
 ````
 ````
-mysql > create database 'name in your .env file" (create a database to populate it)
+configure your ".env" file based on the file ".env.example"
 ````
 ````
-npm run database (install)
+mysql > create database 'name in your .env file" (creates a database to populate it)
 ````
 ````
-mySQL > CREATE DATABASE (db_name on your .env file)
+npm run database (populates the database)
 ````
 ````
-php artisan migrate
-````
-````
-php artisan db:seed //populate SQL database (it could take some minutes)
-````
-````
-php artisan serv //check the project
+npm run node (start the server on the port specified your .env file)
 ````
 ## Credentials
-To log on the network you can:
-* **register** yourself
-* or take a look at a **profile** created with faker/seeder:
+The "database script" populates some **users** on DB with different roles. Check the following examples:
+* Regular user
 ````
-mySQL > select email from users; // choose a email from the database
-email: (from database)
-password: password
+email: user@user.com
+password: 123456
+````
+* Employee
+````
+email: employee@employee.com
+password: 123456
+````
+* Admin
+````
+email: admin@admin.com
+password: 123456
 ````
 ## Authors
 
-* **Guilherme Carra** - [GitHub](https://github.com/GuilhermeCarra/) - [Glitch](https://glitch.com/@GuilhermeCarra/)
+* **Guilherme Carra** - [GitHub](https://github.com/GuilhermeCarra/) - [Glitch](https://glitch.com/@GuilhermeCarra/) - [Linkedin](https://www.linkedin.com/in/guilherme-carra/)
