@@ -26,5 +26,4 @@ append content
                         td= product.title
                         td= product.description
                         td(role="button")
-                            - var editHref = "/dashboard/products/edit?id="+product.id
-                            a(href=editHref) ✏️
+                            a(href="/dashboard/products/edit?id=" + product.id) ✏️
