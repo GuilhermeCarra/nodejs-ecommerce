@@ -27,7 +27,7 @@ npm run database
 npm run node
 ````
 ## Credentials
-The "database script" populates some **users** on DB with different roles. Check the following examples:
+The "database script" populates some **users** on DB with different roles. Use the following examples:
 * Regular user
 ````
 email: user@user.com
