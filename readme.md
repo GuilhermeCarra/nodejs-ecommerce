@@ -12,13 +12,13 @@ npm install
 configure your ".env" file based on the file ".env.example"
 ````
 ````
-mysql > create database "name in your .env file" (creates a database to populate it)
+mysql > create database "name in your .env file" //creates a database to populate it
 ````
 ````
 npm run database (populates the database)
 ````
 ````
-npm run node (start the server on the port specified your .env file)
+npm run node (starts the server on the port specified your .env file)
 ````
 ## Credentials
 The "database script" populates some **users** on DB with different roles. Check the following examples:
@@ -37,6 +37,6 @@ password: 123456
 email: admin@admin.com
 password: 123456
 ````
-## Authors
+## Author
 
 * **Guilherme Carra** - [GitHub](https://github.com/GuilhermeCarra/) - [Glitch](https://glitch.com/@GuilhermeCarra/) - [Linkedin](https://www.linkedin.com/in/guilherme-carra/)
