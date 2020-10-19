@@ -5,7 +5,8 @@ This project is focused in develop a Web MVC application using node.js, mysql an
 
 ## Screenshots
 
-![img](https://live.staticflickr.com/65535/50505312657_e8b7b6613f_b.jpg)
+<a data-flickr-embed="true" href="https://www.flickr.com/photos/190744579@N08/50505312657/in/dateposted-public/" title="burgers-collage"><img src="https://live.staticflickr.com/65535/50505312657_0744e5142a_o.jpg" width="3264" height="1984" alt="burgers-collage"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+
 ## Getting Started
 After cloning this repository, excute the folowing commands to test it:
 
