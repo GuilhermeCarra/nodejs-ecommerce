@@ -1,5 +1,5 @@
 const config = require('../config/app-config.js');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const controller = class OrdersController {
     constructor() {

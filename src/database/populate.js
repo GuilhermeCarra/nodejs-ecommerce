@@ -1,6 +1,6 @@
 var fs = require('fs');
 const path = require('path');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const config = require('../config/app-config.js');
 
 var users = fs.readFileSync(path.join(__dirname , 'ecommerce_users.sql')).toString();

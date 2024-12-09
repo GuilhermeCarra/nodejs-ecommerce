@@ -1,5 +1,5 @@
 const config = require('../config/app-config.js');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const controller = class ProductsController {
     constructor() {
@@ -107,7 +107,7 @@ const controller = class ProductsController {
         return new Promise((resolve,reject) => {
             this.con.query('SELECT * FROM `products` ORDER BY ID ASC LIMIT 3 OFFSET ?', [page*3], function (err, result) {
                 if (err) reject(err);
-                if (result.length < 1) {
+                if (result?.length < 1) {
                     reject(new Error("No more products"));
                 } else {
                     resolve(result);

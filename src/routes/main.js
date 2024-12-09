@@ -6,8 +6,6 @@ const config = require('../config/app-config.js');
 // required libraries
 const session = require('express-session');
 const passport = require('passport');
-const MySQLStore = require('express-mysql-session')(session);
-const sessionStore = new MySQLStore(config.sqlCon);
 const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator');
 
@@ -16,10 +14,10 @@ router.use(session({
     name: process.env.SESSION_NAME,
     key: process.env.SESSION_KEY,
     secret: process.env.SESSION_SECRET,
-    store: sessionStore,
     resave: false,
     saveUninitialized: false
 }));
+
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
@@ -85,16 +83,16 @@ router.get("/cart", authenticate(), async (req, res) => {
 
     try {
         cartContent = await Cart.getContent(req.session.passport.user);
-        cartContent = JSON.parse(cartContent.content);
-        let idList = cartContent.map(({ id }) => id)
+        let idList = cartContent.content.map(({ id }) => id)
         idList = Array.from(new Set(idList)).toString();
         products = await Products.getByIdArray(idList);
-    } catch {
+    } catch (err) {
+        console.log(err);
         cartContent = false;
     }
 
     if (cartContent) products = JSON.parse(JSON.stringify(products))
-    res.render(`${config.views}/public/cart.ejs`, {cart: cartContent, products: products});
+    res.render(`${config.views}/public/cart.ejs`, {cart: cartContent.content, products: products});
 });
 
 // checkout process
@@ -135,7 +133,7 @@ async (req, res) => {
 
         try {
             cartContent = await Cart.getContent(userId);
-            cartContent = JSON.parse(cartContent.content);
+            cartContent = cartContent.content;
             orderId = await Orders.create({costumer_id: userId});
             Orders.saveOrderProducts(orderId, cartContent)
             Cart.empty(userId);

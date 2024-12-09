@@ -1,5 +1,5 @@
 const config = require('../config/app-config.js');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const controller = class ProductsController {
     constructor() {
@@ -25,7 +25,7 @@ const controller = class ProductsController {
 
             try {
                 let cartContent = await this.getContent(user);
-                let cartProducts = JSON.parse(cartContent.content);
+                let cartProducts = cartContent.content;
 
                 for(let cartProduct of cartProducts) {
                     for(let newProduct of newProducts) {
@@ -59,7 +59,7 @@ const controller = class ProductsController {
 
             try {
                 let cartContent = await this.getContent(user);
-                let cartProducts = JSON.parse(cartContent.content);
+                let cartProducts = cartContent.content;
                 let found = false;
 
                 for (let cartProduct of cartProducts) {
@@ -83,7 +83,8 @@ const controller = class ProductsController {
                     resolve('Added to the cart!');
                 });
 
-            } catch {
+            } catch (err) {
+                console.log(err);
                 reject(new Error('Could not access cart'))
             }
         });
