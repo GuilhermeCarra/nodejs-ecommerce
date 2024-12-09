@@ -16,11 +16,11 @@ npm install
 ````
 * Configure your **.env** file:
 ````
-Based on the file ".env.example"
+Create a ".env" file on this project's root based on the file ".env.example"
 ````
-* Creating a database:
+* Create a database (with mysql already installed and configured in your computer):
 ````
-mysql > create database "name in your .env file"
+mysql > CREATE DATABASE ecommerce;
 ````
 * Populating the database:
 ````
